@@ -17,90 +17,74 @@ import de.uni_hamburg.informatik.swt.se2.kino.startup.Beobachtbar;
  * @author SE2-Team
  * @version SoSe 2021
  */
-public class DatumAuswaehlWerkzeug extends Beobachtbar
-{
-    private DatumAuswaehlWerkzeugUI _ui;
-    private Datum _ausgewaehltesDatum;
+public class DatumAuswaehlWerkzeug extends Beobachtbar {
+	private DatumAuswaehlWerkzeugUI _ui;
+	private Datum _ausgewaehltesDatum;
 
-    /**
-     * Initialisiert dieses Werkzeug. Das initial ausgewählte Datum ist der
-     * heutige Tag.
-     */
-    public DatumAuswaehlWerkzeug()
-    {
-        _ausgewaehltesDatum = Datum.heute();
-        _ui = new DatumAuswaehlWerkzeugUI(
-                _ausgewaehltesDatum.getFormatiertenString());
-        registriereUIAktionen();
-    }
+	/**
+	 * Initialisiert dieses Werkzeug. Das initial ausgewählte Datum ist der heutige
+	 * Tag.
+	 */
+	public DatumAuswaehlWerkzeug() {
+		_ausgewaehltesDatum = Datum.heute();
+		_ui = new DatumAuswaehlWerkzeugUI(_ausgewaehltesDatum.getFormatiertenString());
+		registriereUIAktionen();
+	}
 
-    /**
-     * Diese Methode wird aufgerufen, wenn der Zurueck-Button gedrueckt wurde.
-     */
-    private void zurueckButtonWurdeGedrueckt()
-    {
-        _ausgewaehltesDatum = _ausgewaehltesDatum.vorherigerTag();
-        _ui.getDatumLabel()
-            .setText(_ausgewaehltesDatum.getFormatiertenString());
-        informiereUeberDatumAenderung();
-    }
+	/**
+	 * Diese Methode wird aufgerufen, wenn der Zurueck-Button gedrueckt wurde.
+	 */
+	private void zurueckButtonWurdeGedrueckt() {
+		_ausgewaehltesDatum = _ausgewaehltesDatum.vorherigerTag();
+		_ui.getDatumLabel().setText(_ausgewaehltesDatum.getFormatiertenString());
+		informiereUeberAenderung();
+	}
 
-    /**
-     * Diese Methode wird aufgerufen, wenn der Weiter-Button gedrueckt wurde.
-     */
-    private void weiterButtonWurdeGedrueckt()
-    {
-        _ausgewaehltesDatum = _ausgewaehltesDatum.naechsterTag();
-        _ui.getDatumLabel()
-            .setText(_ausgewaehltesDatum.getFormatiertenString());
-        informiereUeberDatumAenderung();
-    }
+	/**
+	 * Diese Methode wird aufgerufen, wenn der Weiter-Button gedrueckt wurde.
+	 */
+	private void weiterButtonWurdeGedrueckt() {
+		_ausgewaehltesDatum = _ausgewaehltesDatum.naechsterTag();
+		_ui.getDatumLabel().setText(_ausgewaehltesDatum.getFormatiertenString());
+		informiereUeberAenderung();
+	}
 
-    /**
-     * Gibt das Panel dieses Subwerkzeugs zurück. Das Panel sollte von einem
-     * Kontextwerkzeug eingebettet werden.
-     * 
-     * @ensure result != null
-     */
-    public JPanel getUIPanel()
-    {
-        return _ui.getUIPanel();
-    }
+	/**
+	 * Gibt das Panel dieses Subwerkzeugs zurück. Das Panel sollte von einem
+	 * Kontextwerkzeug eingebettet werden.
+	 * 
+	 * @ensure result != null
+	 */
+	public JPanel getUIPanel() {
+		return _ui.getUIPanel();
+	}
 
-    /**
-     * Gibt das im Werkzeug ausgewählte Datum zurück.
-     * 
-     * @ensure result != null
-     */
-    public Datum getSelektiertesDatum()
-    {
-        return _ausgewaehltesDatum;
-    }
+	/**
+	 * Gibt das im Werkzeug ausgewählte Datum zurück.
+	 * 
+	 * @ensure result != null
+	 */
+	public Datum getSelektiertesDatum() {
+		return _ausgewaehltesDatum;
+	}
 
-    /**
-     * Verbindet die fachlichen Aktionen mit den Interaktionselementen der
-     * graphischen Benutzungsoberfläche.
-     */
-    private void registriereUIAktionen()
-    {
-        _ui.getZurueckButton()
-            .addActionListener(new ActionListener()
-            {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    zurueckButtonWurdeGedrueckt();
-                }
-            });
+	/**
+	 * Verbindet die fachlichen Aktionen mit den Interaktionselementen der
+	 * graphischen Benutzungsoberfläche.
+	 */
+	private void registriereUIAktionen() {
+		_ui.getZurueckButton().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				zurueckButtonWurdeGedrueckt();
+			}
+		});
 
-        _ui.getWeiterButton()
-            .addActionListener(new ActionListener()
-            {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    weiterButtonWurdeGedrueckt();
-                }
-            });
-    }
+		_ui.getWeiterButton().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				weiterButtonWurdeGedrueckt();
+			}
+		});
+	}
 }
